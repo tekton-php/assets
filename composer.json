@@ -1,0 +1,20 @@
+{
+  "name": "tekton/assets",
+  "type": "library",
+  "license": "MIT",
+  "description": "An asset manager that handles assets by reading a manifest and also providing graceful fallbacks.",
+  "homepage": "https://gitlab.com/tekton/assets",
+  "autoload": {
+    "psr-4": {
+      "Tekton\\Assets\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.0.0",
+    "tekton/support": "^1.0.0"
+  }
+}
