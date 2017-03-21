@@ -13,7 +13,7 @@ class AssetsProvider extends ServiceProvider {
         $manifestPath = $config->get('assets.manifest', 'dist'.DS.'manifest.json');
         $source = $config->get('assets.source', 'assets');
         $compiled = $config->get('assets.compiled', 'dist');
-        $root = cwd_rel_path(app_path());
+        $root = $config->get('assets.root', cwd_rel_path(app_path()));
 
         // Configure cache
         $cacheDir = get_path('cache').DS.'manifest';
@@ -24,7 +24,7 @@ class AssetsProvider extends ServiceProvider {
         }
 
         // Create manifest
-        $manifest = new CachedManifest('assets', $cacheDir, $manifestPath);
+        $manifest = new CachedManifest('assets', $cacheDir, $root.DS.$manifestPath);
 
         // Register the AssetManager
         $this->app->singleton('assets', function() use ($manifest, $root, $source, $compiled) {
