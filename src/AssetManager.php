@@ -1,61 +1,36 @@
 <?php namespace Tekton\Assets;
 
 use Tekton\Support\Contracts\Manifest;
+use Tekton\Assets\AssetsQueue;
 
-class AssetManager {
-    // protected $manifestPath;
+class AssetManager
+{
+    use \Tekton\Support\Traits\LibraryWrapper;
+
     protected $manifest;
-    protected $srcBase;
-    protected $targetBase;
-    protected $root;
+    protected $queues = [];
 
-    function __construct(Manifest $manifest, $root = '', $srcBase = '', $targetBase = '') {
-        // Define ds
-        if ( ! defined('DS')) {
-            define('DS', DIRECTORY_SEPARATOR);
-        }
-
+    function __construct(Manifest $manifest = null)
+    {
         $this->setManifest($manifest);
-        $this->setSrcBase($srcBase);
-        $this->setTargetBase($targetBase);
-        $this->setRoot($root);
     }
 
-    function setManifest(Manifest $manifest) {
-        $this->manifest = $manifest;
+    function setManifest(Manifest $manifest)
+    {
+        $this->manifest = $this->library = $manifest;
     }
 
-    function setSrcBase($path) {
-        $this->srcBase = $path;
+    function getManifest()
+    {
+        return $this->manifest;
     }
 
-    function setTargetBase($path) {
-        $this->targetBase = $path;
-    }
-
-    function setRoot($path) {
-        $this->root = $path;
-    }
-
-    function get($asset) {
-        $srcUri = ( ! empty($this->root)) ? $this->root.DS.$this->srcBase : $this->srcBase;
-        $targetUri = ( ! empty($this->root)) ? $this->root.DS.$this->targetBase : $this->targetBase;
-
-        // If defined in manifest, return the revisioned file
-        if ($this->manifest->has($asset)) {
-            return $targetUri.DS.$this->manifest->get($asset);
-        }
-        else {
-            $compiledPath = $targetUri.DS.$asset;
-            $compiledAbsPath = realpath($compiledPath);
-
-            // If not defined in manifest, see if it exists in target dir
-            if (file_exists($compiledAbsPath)) {
-                return $compiledPath;
-            }
+    function queue(string $id = 'default')
+    {
+        if (! isset($this->queues[$id])) {
+            $this->queues[$id] = new AssetQueue($id);
         }
 
-        // Return original asset path
-        return $srcUri.DS.$asset;
+        return $this->queues[$id];
     }
 }
