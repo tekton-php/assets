@@ -18,8 +18,8 @@ class AssetsProvider extends ServiceProvider
         // Get asset manager paths from config
         $source = $config->get('assets.source', 'assets');
         $compiled = $config->get('assets.compiled', 'dist');
-        $root = $config->get('assets.root', cwd_rel_path(app_path()));
-        $cwd = $config->get('assets.cwd', cwd());
+        $root = $config->get('assets.root', rel_path(app_path(), cwd_path()));
+        $cwd = $config->get('assets.cwd', cwd_path());
         $manifestPath = $cwd.DS.$root.DS.$config->get('assets.manifest', 'dist'.DS.'manifest.json');
 
         // Configure cache

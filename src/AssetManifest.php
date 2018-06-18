@@ -10,7 +10,7 @@ class AssetManifest extends \Tekton\Support\CachedManifest
     function __construct(string $path, string $cacheDir, array $manifest = [], string $root = '', string $srcBase = '', string $targetBase = '')
     {
         // Define ds
-        if ( ! defined('DS')) {
+        if (! defined('DS')) {
             define('DS', DIRECTORY_SEPARATOR);
         }
 
