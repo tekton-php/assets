@@ -29,7 +29,7 @@ class AssetsProvider extends ServiceProvider
 
         // Create manifest
         $manifest = new AssetManifest($manifestPath, $cachePath, [], $root, $source, $compiled);
-        $manifest->setCwd($config->get('assets.cwd', cwd()));
+        $manifest->setCwd($cwd);
 
         // Register the AssetManager
         $this->app->singleton('assets', function() use ($manifest) {
