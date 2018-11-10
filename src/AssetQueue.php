@@ -10,14 +10,14 @@ class AssetQueue implements Iterator
     protected $queue = [];
     protected $sorted = false;
 
-    function __construct(string $id, array $items = [])
+    public function __construct(string $id, array $items = [])
      {
         foreach ($items as $key => $val) {
             $this->add($key, $val['asset'] ?? $val, $val['dependencies'] ?? [], $val['data'] ?? []);
         }
     }
 
-    function rewind()
+    public function rewind()
     {
         if (! $this->sorted) {
             $this->sort();
@@ -26,26 +26,26 @@ class AssetQueue implements Iterator
         return reset($this->queue);
     }
 
-    function current()
+    public function current()
     {
         return current($this->queue);
     }
 
-    function key() {
+    public function key() {
         return key($this->queue);
     }
 
-    function next()
+    public function next()
     {
         return next($this->queue);
     }
 
-    function valid()
+    public function valid()
     {
         return key($this->queue) !== null;
     }
 
-    function add(string $id, string $asset, array $deps = [], array $data = [])
+    public function add(string $id, string $asset, array $deps = [], array $data = [])
     {
         $this->sorted = false;
 
@@ -58,7 +58,7 @@ class AssetQueue implements Iterator
         return $this;
     }
 
-    function injectDependency(string $id, $deps)
+    public function injectDependency(string $id, $deps)
     {
         $this->sorted = false;
         $this->queue[$id]['dependencies'] = array_merge($this->queue[$id]['dependencies'], (array) $deps);
@@ -66,7 +66,7 @@ class AssetQueue implements Iterator
         return $this;
     }
 
-    function remove(string $id)
+    public function remove(string $id)
     {
         $this->sorted = false; // Only since a required dependency might now be missing
 
@@ -79,22 +79,22 @@ class AssetQueue implements Iterator
         return null;
     }
 
-    function clear()
+    public function clear()
     {
         $this->queue = [];
     }
 
-    function isEmpty()
+    public function isEmpty()
     {
         return empty($this->queue);
     }
 
-    function get(string $id)
+    public function get(string $id)
     {
         return (isset($this->queue[$id])) ? $this->queue[$id] : null;
     }
 
-    function all()
+    public function all()
     {
         if (! $this->sorted) {
             $this->sort();
@@ -116,7 +116,7 @@ class AssetQueue implements Iterator
         $this->sorted = true;
     }
 
-    function getSortOrder($items)
+    public function getSortOrder($items)
     {
         // Set up sorter
         $sorter = new StringSort();

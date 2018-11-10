@@ -7,7 +7,7 @@ class AssetManifest extends \Tekton\Support\CachedManifest
     protected $root;
     protected $cwd;
 
-    function __construct(string $path, string $cacheDir, array $manifest = [], string $root = '', string $srcBase = '', string $targetBase = '')
+    public function __construct(string $path, string $cacheDir, array $manifest = [], string $root = '', string $srcBase = '', string $targetBase = '')
     {
         // Define ds
         if (! defined('DS')) {
@@ -22,47 +22,47 @@ class AssetManifest extends \Tekton\Support\CachedManifest
         parent::__construct($path, $cacheDir, $manifest);
     }
 
-    function setCwd(string $cwd)
+    public function setCwd(string $cwd)
     {
         $this->cwd = $cwd;
     }
 
-    function getCwd()
+    public function getCwd()
     {
         return $this->cwd;
     }
 
-    function setSrcBase(string $path)
+    public function setSrcBase(string $path)
     {
         $this->srcBase = $path;
     }
 
-    function getSrcBase()
+    public function getSrcBase()
     {
         return $this->srcBase;
     }
 
-    function setTargetBase(string $path)
+    public function setTargetBase(string $path)
     {
         $this->targetBase = $path;
     }
 
-    function getTargetBase()
+    public function getTargetBase()
     {
         return $this->targetBase;
     }
 
-    function setRoot(string $path)
+    public function setRoot(string $path)
     {
         $this->root = $path;
     }
 
-    function getRoot()
+    public function getRoot()
     {
         return $this->root;
     }
 
-    function get(string $asset, $default = null)
+    public function get(string $asset, $default = null)
     {
         $srcUri = (! empty($this->root)) ? $this->root.DS.$this->srcBase : $this->srcBase;
         $targetUri = (! empty($this->root)) ? $this->root.DS.$this->targetBase : $this->targetBase;

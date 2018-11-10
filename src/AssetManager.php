@@ -10,22 +10,22 @@ class AssetManager
     protected $manifest;
     protected $queues = [];
 
-    function __construct(Manifest $manifest = null)
+    public function __construct(Manifest $manifest = null)
     {
         $this->setManifest($manifest);
     }
 
-    function setManifest(Manifest $manifest)
+    public function setManifest(Manifest $manifest)
     {
         $this->manifest = $this->library = $manifest;
     }
 
-    function getManifest()
+    public function getManifest()
     {
         return $this->manifest;
     }
 
-    function queue(string $id = 'default')
+    public function queue(string $id = 'default')
     {
         if (! isset($this->queues[$id])) {
             $this->queues[$id] = new AssetQueue($id);
