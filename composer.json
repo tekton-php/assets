@@ -2,20 +2,20 @@
     "name": "tekton/assets",
     "type": "library",
     "license": "MIT",
-    "description": "An asset manager that handles assets by reading a manifest and also providing graceful fallbacks.",
+    "description": "An asset manager that can easily read manifests and also compile and combine assets.",
     "homepage": "https://github.com/tekton-php/assets",
     "autoload": {
         "psr-4": {
             "Tekton\\Assets\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+        }
     },
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7.0.0",
         "tekton/support": "^2.0.0",
         "marcj/topsort": "~0.1"
-    }
+    },
+    "suggest": {
+        "matthiasmullie/minify": "Required to use the minify filter (^1.3).",
+        "leafo/scssphp": "Required to use the SCSS filter (^0.7.7)."
+    },
 }
