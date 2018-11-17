@@ -17,5 +17,5 @@
     "suggest": {
         "matthiasmullie/minify": "Required to use the minify filter (^1.3).",
         "leafo/scssphp": "Required to use the SCSS filter (^0.7.7)."
-    },
+    }
 }
